@@ -20,11 +20,19 @@ permissions:
 jobs:
   claude:
     runs-on: ubuntu-latest
+
+    # ✅ Only run when an @claude mention is present
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0              # need full git metadata for branching
+          fetch-depth: 0
           persist-credentials: true
 
       - name: Run Claude Code Action
@@ -32,4 +40,6 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
-          base_branch: main           # adjust if your default branch is not 'main'
+          base_branch: main
+          branch_prefix: claude/
+          use_sticky_comment: true
