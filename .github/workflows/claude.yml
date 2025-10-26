@@ -6,15 +6,24 @@ on:
   issue_comment:
     types: [created, edited]
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened, synchronize, edited]
   pull_request_review_comment:
     types: [created, edited]
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
-  claude-response:
+  claude:
     runs-on: ubuntu-latest
-    if: contains(github.event.comment.body, '@claude') || contains(github.event.issue.body, '@claude') || contains(github.event.pull_request.body, '@claude')
-    
+    # only run if a body/comment actually mentions @claude
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
     steps:
       - uses: anthropics/claude-code-action@v1
         with:
