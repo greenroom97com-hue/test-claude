@@ -9,22 +9,20 @@ on:
     types: [opened, reopened, synchronize, edited]
   pull_request_review_comment:
     types: [created, edited]
+  workflow_dispatch: {}
 
 permissions:
   contents: write
   issues: write
   pull-requests: write
+  id-token: write   # <-- required for the action to set up the GitHub token
 
 jobs:
   claude:
     runs-on: ubuntu-latest
-    # only run if a body/comment actually mentions @claude
-    if: |
-      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
     steps:
-      - uses: anthropics/claude-code-action@v1
+      - name: Run Claude Code Action
+        uses: anthropics/claude-code-action@v1
         with:
-          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}  # <-- underscores
+          github_token: ${{ github.token }}                    # <-- pass default token
