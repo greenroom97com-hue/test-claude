@@ -1,0 +1,28 @@
+name: Feature request
+description: Request a new feature or capability
+title: "[feat]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What outcome do you want?
+      placeholder: e.g., Build "Studio Rentals" landing page with booking CTA
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: What must be true for this to be done?
+      placeholder: Sections, stack, performance, routing, forms, etc.
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Tech stack, file locations, APIs, style rules
+  - type: textarea
+    id: call-claude
+    attributes:
+      label: Call Claude
+      description: Add the exact @claude command you want to run
+      placeholder: "@claude scaffold Next.js app, open PR 'feat: studio rentals'"

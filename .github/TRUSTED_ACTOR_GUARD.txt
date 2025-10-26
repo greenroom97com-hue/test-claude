@@ -1,0 +1,9 @@
+# To restrict who can trigger Claude in public repos, consider this job guard:
+# if: |
+#   (github.actor_association == 'OWNER' || github.actor_association == 'MEMBER' || github.actor_association == 'COLLABORATOR')
+#   && (
+#     (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+#     (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+#     (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude')) ||
+#     (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
+#   )

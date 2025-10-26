@@ -1,0 +1,21 @@
+- name: enhancement
+  color: 3E4B9E
+  description: New feature or improvement
+- name: bug
+  color: D73A4A
+  description: Something isn't working
+- name: docs
+  color: 0075CA
+  description: Documentation updates
+- name: content
+  color: 0E8A16
+  description: Content pack / copy / assets
+- name: automation
+  color: FBCA04
+  description: Scripts, n8n, workflows
+- name: frontend
+  color: C2E0C6
+  description: UI / web app work
+- name: marketing
+  color: FEF2C0
+  description: Funnels / GHL / campaigns

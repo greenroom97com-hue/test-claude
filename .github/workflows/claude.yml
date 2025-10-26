@@ -21,7 +21,7 @@ jobs:
   claude:
     runs-on: ubuntu-latest
 
-    # ✅ Only run when an @claude mention is present
+    # ✅ Run only when an @claude mention is present (prevents noise)
     if: |
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||

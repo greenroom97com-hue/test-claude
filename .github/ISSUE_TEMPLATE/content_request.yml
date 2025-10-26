@@ -1,0 +1,25 @@
+name: Content pack request
+description: Generate posts/reels/emails/captions
+title: "[content]: "
+labels: [content]
+body:
+  - type: textarea
+    id: campaign
+    attributes:
+      label: Campaign
+      placeholder: e.g., 30 days IG for Studio Rentals (GR97 brand)
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables
+      placeholder: e.g., 30 captions (hook+CTA), 10 reels scripts, 5 headers in /content/assets/headers
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      placeholder: Markdown files in /content, calendar.json updated, README updates
+  - type: textarea
+    id: claude
+    attributes:
+      label: Call Claude
+      placeholder: "@claude generate content/… and open PR 'feat: Oct content pack'"
