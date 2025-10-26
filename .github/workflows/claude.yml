@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0           # need .git for branching
+          fetch-depth: 0              # need full git metadata for branching
           persist-credentials: true
 
       - name: Run Claude Code Action
@@ -32,4 +32,4 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
-          base_branch: main         # ensure it branches from main (adjust if your default differs)
+          base_branch: main           # adjust if your default branch is not 'main'
