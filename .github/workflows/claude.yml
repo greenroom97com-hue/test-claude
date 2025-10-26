@@ -1,17 +1,20 @@
-name: Claude Code Integration
+name: Claude Code Assistant
+
 on:
   issues:
     types: [opened, edited]
   issue_comment:
-    types: [created]
+    types: [created, edited]
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
   pull_request_review_comment:
-    types: [created]
+    types: [created, edited]
 
 jobs:
-  claude:
+  claude-response:
     runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '@claude') || contains(github.event.issue.body, '@claude') || contains(github.event.pull_request.body, '@claude')
+    
     steps:
       - uses: anthropics/claude-code-action@v1
         with:
