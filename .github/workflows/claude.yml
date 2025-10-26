@@ -15,14 +15,21 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
-  id-token: write     # REQUIRED so the action can mint a token
+  id-token: write
 
 jobs:
   claude:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0           # need .git for branching
+          persist-credentials: true
+
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}  # <-- CORRECT KEY
-          github_token: ${{ github.token }}                    # <-- pass default token
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+          base_branch: main         # ensure it branches from main (adjust if your default differs)
